@@ -1,0 +1,46 @@
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10%;
+  border: 1px solid #111;
+}
+
+nav ul li {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #111;
+}
+
+.selected {
+  background-color: #c1c1c1;
+  border-left: 5px solid #111;
+  border-right: 5px solid #111;
+}
+
+.table-container {
+  table-layout: fixed;
+  width: 100%;
+}
+
+table {
+  border: 1px solid #111;
+  border-collapse: collapse;
+  width: inherit;
+}
+
+table td,
+table th {
+  border: 1px solid #111;
+  padding: 20px 8px;
+  text-align: center;
+}
+
+table th {
+  background-color: #c1c1c1;
+}

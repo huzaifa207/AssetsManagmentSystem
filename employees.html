@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body onload="loadDoc()">
+    <nav>
+      <ul>
+        <li><a href="devices.php">Home</a></li>
+        <li><a href="devices.php">Devices Dashboard</a></li>
+        <li class="selected"><a href="employees.html">Employees List</a></li>
+        <li><a href="logout.php">Logout</a></li>
+      </ul>
+    </nav>
+    <div class="table-container">
+      <h1>List of Employees</h1>
+      <table id="table">
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>CNIC</th>
+          <th>DEVICES LIMIT</th>
+          <th>HAS DEVICES</th>
+        </tr>
+      </table>
+    </div>
+    <script>
+      let table = document.getElementById("table");
+
+      let xhttp = new XMLHttpRequest();
+
+      let loadDoc = () => {
+        xhttp.onreadystatechange = () => {
+          if (xhttp.readyState == 4 && xhttp.status == 200) {
+            let employeeJson = xhttp.responseText;
+            let employees = JSON.parse(employeeJson);
+
+            employees.forEach((employee) => {
+              let row = document.createElement("tr");
+              let id = employee.id;
+              let name = employee.name;
+              let cnic = employee.cnic;
+              let dev_limit = employee.devices_limit;
+              let devices_text = "";
+              let devices = employee.has_devices;
+
+              let td_id = document.createElement("td");
+              td_id.innerHTML = id;
+
+              let td_name = document.createElement("td");
+              td_name.innerHTML = name;
+
+              let td_cnic = document.createElement("td");
+              td_cnic.innerHTML = cnic;
+
+              let td_dev_limit = document.createElement("td");
+              td_dev_limit.innerHTML = dev_limit;
+
+              devices.forEach((device) => {
+                devices_text += `${device.name}(${device.id})<br>`;
+              });
+              let td_devices = document.createElement("td");
+              td_devices.innerHTML = devices_text;
+
+              row.appendChild(td_id);
+              row.appendChild(td_name);
+              row.appendChild(td_cnic);
+              row.appendChild(td_dev_limit);
+              row.appendChild(td_devices);
+
+              table.appendChild(row);
+            });
+          }
+        };
+
+        xhttp.open("get", "get-employees-data.php", true);
+        xhttp.send();
+      };
+    </script>
+  </body>
+</html>
